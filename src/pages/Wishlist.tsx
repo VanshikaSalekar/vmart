@@ -59,7 +59,7 @@ const Wishlist = () => {
   
   // Redirect to login if not authenticated
   if (!isAuthenticated) {
-    return <Navigate to="/login?redirect=wishlist" replace />;
+    return <Navigate to="/login?redirect=wishlist\" replace />;
   }
   
   return (
