@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { useAuth } from "@/context/AuthContext";
@@ -15,46 +14,22 @@ const Wishlist = () => {
   const { addToCart } = useCart();
   const [wishlistItems, setWishlistItems] = useState<WishlistItem[]>([]);
   
-  // For demo purposes, we'll just use some hard-coded products
+  // Load wishlist from localStorage on mount
   useEffect(() => {
-    // In a real app, this would be fetched from an API
-    const mockWishlist: WishlistItem[] = [
-      {
-        id: "product-2",
-        name: "Wireless Noise-Cancelling Headphones",
-        description: "Premium wireless headphones with active noise cancellation, 30-hour battery life, and comfortable ear cushions for all-day listening.",
-        price: 149.99,
-        originalPrice: 199.99,
-        images: [
-          "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-1.2.1&auto=format&fit=crop&q=80&w=1050&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-        ],
-        category: "electronics",
-        subCategory: "audio",
-        rating: 4.8,
-        reviewCount: 256,
-        stock: 42,
-        featured: true,
-        discount: 25,
-      },
-      {
-        id: "product-5",
-        name: "Women's Summer Dress",
-        description: "Elegant summer dress with floral pattern, perfect for beach days and casual outings. Light and comfortable material.",
-        price: 39.99,
-        images: [
-          "https://images.unsplash.com/photo-1539008835657-9e8e9680c956?ixlib=rb-1.2.1&auto=format&fit=crop&q=80&w=987&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-        ],
-        category: "fashion",
-        subCategory: "women",
-        rating: 4.7,
-        reviewCount: 136,
-        stock: 85,
-        featured: true,
-      },
-    ];
-    
-    setWishlistItems(mockWishlist);
+    const savedWishlist = localStorage.getItem("vmart-wishlist");
+    if (savedWishlist) {
+      try {
+        setWishlistItems(JSON.parse(savedWishlist));
+      } catch (error) {
+        console.error("Failed to parse wishlist:", error);
+      }
+    }
   }, []);
+  
+  // Save wishlist to localStorage whenever it changes
+  useEffect(() => {
+    localStorage.setItem("vmart-wishlist", JSON.stringify(wishlistItems));
+  }, [wishlistItems]);
   
   const handleRemoveFromWishlist = (id: string) => {
     setWishlistItems(wishlistItems.filter(item => item.id !== id));

@@ -17,7 +17,7 @@ interface AuthContextProps {
   loading: boolean;
 }
 
-// Mock user data (would be replaced with actual API calls in a real application)
+// Mock user data
 const MOCK_USERS = [
   {
     id: "admin1",
@@ -127,6 +127,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const logout = () => {
     setUser(null);
     localStorage.removeItem("vmart-user");
+    localStorage.removeItem("vmart-wishlist"); // Clear wishlist on logout
     toast.info("Logged out successfully");
   };
   
