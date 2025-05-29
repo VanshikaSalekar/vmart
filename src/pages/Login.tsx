@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "@/context/AuthContext";
@@ -175,13 +174,18 @@ const Login = () => {
         </Card>
         
         <div className="mt-6 text-center text-sm text-gray-600">
-          <p>
-            For demo, use:
-            <br />
-            Email: demo@example.com
-            <br />
-            Password: password123
-          </p>
+          <p className="font-medium mb-2">Demo Accounts:</p>
+          <div className="space-y-1">
+            <p>
+              Admin: admin@example.com / admin123
+            </p>
+            <p>
+              Seller: seller@example.com / seller123
+            </p>
+            <p>
+              Customer: customer@example.com / customer123
+            </p>
+          </div>
         </div>
       </div>
     </div>

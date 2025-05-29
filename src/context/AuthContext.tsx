@@ -1,4 +1,3 @@
-
 import React, { createContext, useState, useContext, useEffect } from "react";
 import { toast } from "sonner";
 
@@ -6,6 +5,7 @@ interface User {
   id: string;
   name: string;
   email: string;
+  role: "admin" | "seller" | "customer";
 }
 
 interface AuthContextProps {
@@ -20,10 +20,25 @@ interface AuthContextProps {
 // Mock user data (would be replaced with actual API calls in a real application)
 const MOCK_USERS = [
   {
-    id: "user1",
-    name: "Demo User",
-    email: "demo@example.com",
-    password: "password123"
+    id: "admin1",
+    name: "Admin User",
+    email: "admin@example.com",
+    password: "admin123",
+    role: "admin"
+  },
+  {
+    id: "seller1",
+    name: "Seller User",
+    email: "seller@example.com",
+    password: "seller123",
+    role: "seller"
+  },
+  {
+    id: "customer1",
+    name: "Demo Customer",
+    email: "customer@example.com",
+    password: "customer123",
+    role: "customer"
   }
 ];
 
@@ -94,11 +109,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
     
     // In a real app, we would make an API call to register the user
-    // For this demo, we'll just simulate success
+    // For this demo, we'll just simulate success and register as customer
     const newUser = {
       id: `user${Date.now()}`,
       name,
-      email
+      email,
+      role: "customer" as const
     };
     
     setUser(newUser);

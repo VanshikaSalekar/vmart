@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useCart } from "@/context/CartContext";
@@ -11,7 +10,8 @@ import {
   User, 
   Heart, 
   Menu, 
-  LogOut 
+  LogOut,
+  LayoutDashboard
 } from "lucide-react";
 import { 
   DropdownMenu, 
@@ -144,9 +144,17 @@ const Header: React.FC<HeaderProps> = ({ onMenuOpen }) => {
                 <DropdownMenuContent align="end" className="w-56">
                   <div className="p-2">
                     <p className="font-medium">{user?.name}</p>
-                    <p className="text-xs text-muted-foreground">{user?.email}</p>
+                    <p className="text-xs text-muted-foreground capitalize">{user?.role}</p>
                   </div>
                   <DropdownMenuSeparator />
+                  {(user?.role === "admin" || user?.role === "seller") && (
+                    <DropdownMenuItem asChild>
+                      <Link to="/dashboard" className="w-full cursor-pointer">
+                        <LayoutDashboard className="mr-2 h-4 w-4" />
+                        Dashboard
+                      </Link>
+                    </DropdownMenuItem>
+                  )}
                   <DropdownMenuItem asChild>
                     <Link to="/profile" className="w-full cursor-pointer">
                       My Profile
@@ -192,7 +200,7 @@ const Header: React.FC<HeaderProps> = ({ onMenuOpen }) => {
                 placeholder="Search products..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-10"
+                className="pl-10"
               />
               <Search 
                 className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" 
