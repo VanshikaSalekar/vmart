@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
@@ -66,6 +65,29 @@ const ProductDetails = () => {
   };
   
   const handleAddToWishlist = () => {
+    // Get existing wishlist
+    const savedWishlist = localStorage.getItem("vmart-wishlist");
+    let wishlist: Product[] = [];
+    
+    if (savedWishlist) {
+      try {
+        wishlist = JSON.parse(savedWishlist);
+      } catch (error) {
+        console.error("Failed to parse wishlist:", error);
+      }
+    }
+    
+    // Check if product is already in wishlist
+    const isInWishlist = wishlist.some(item => item.id === product.id);
+    
+    if (isInWishlist) {
+      toast.error("Product already in wishlist");
+      return;
+    }
+    
+    // Add product to wishlist
+    wishlist.push(product);
+    localStorage.setItem("vmart-wishlist", JSON.stringify(wishlist));
     toast.success("Product added to wishlist");
   };
   
