@@ -149,7 +149,7 @@ const Header: React.FC<HeaderProps> = ({ onMenuOpen }) => {
                   <DropdownMenuSeparator />
                   {(user?.role === "admin" || user?.role === "seller") && (
                     <DropdownMenuItem asChild>
-                      <Link to="/dashboard" className="w-full cursor-pointer">
+                      <Link to="/dashboard\" className="w-full cursor-pointer">
                         <LayoutDashboard className="mr-2 h-4 w-4" />
                         Dashboard
                       </Link>
